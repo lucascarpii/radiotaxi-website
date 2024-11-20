@@ -1,3 +1,5 @@
+import { motion } from "motion/react"
+
 export function SectionOne() {
   const features = [
     {
@@ -38,57 +40,72 @@ export function SectionOne() {
     },
   ];
 
+  const variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <section id="features">
-      <div
-        class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12"
-      >
-        <div class="mx-auto max-w-xl text-center">
-          <div>
-            <p
-              class="text-4xl tracking-tight font-medium text-black md:text-5xl font-display"
-            >
-              Una herramienta para optimizar tu trabajo
-            </p><p
-              class="mt-4 text-lg text-na mx-auto tracking-tight text-gray-500"
-            >
-              Simplifica la gestión de taxis con características diseñadas para
-              ahorrar tiempo y mejorar la eficiencia.
-            </p>
+      <div className="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12">
+        <motion.div
+          className="mx-auto max-w-xl text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+          }}
+        >
+          <motion.p
+            className="text-4xl tracking-tight font-medium text-black md:text-5xl font-display"
+            variants={variants}
+          >
+            Una herramienta para optimizar tu trabajo
+          </motion.p>
+          <motion.p
+            className="mt-4 text-lg text-na mx-auto tracking-tight text-gray-500"
+            variants={variants}
+          >
+            Simplifica la gestión de taxis con características diseñadas para
+            ahorrar tiempo y mejorar la eficiencia.
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          className="mx-auto max-w-7xl pt-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+          }}
+        >
+          <div className="grid gap-12 grid-cols-1 lg:space-y-0 lg:text-center md:grid-cols-3">
+            {features.map((feature, index) => (
+              <motion.div key={index} variants={variants}>
+                <div>
+                  <div className="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10 lg:mx-auto">
+                    <ion-icon
+                      aria-label={feature.icon}
+                      className="hydrated md h-4 w-4"
+                      name={feature.icon}
+                      role="img"
+                    />
+                  </div>
+                  <p className="mt-4 text-lg font-semibold leading-6 text-black font-display tracking-tight">
+                    {feature.title}
+                  </p>
+                </div>
+                <div className="mt-4 text-gray-500 text-sm">
+                  {feature.description}
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </div>
-        <div>
-          <div class="mx-auto max-w-7xl pt-12">
-            <h2 class="sr-only">Features.</h2><div>
-              <div
-                class="grid gap-12 grid-cols-1 lg:space-y-0 lg:text-center md:grid-cols-3"
-              >
-                {
-                  features.map((feature) => (
-                    <div>
-                      <div>
-                        <div class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10 lg:mx-auto">
-                          <ion-icon
-                            aria-label={feature.icon}
-                            class="hydrated md h-4 w-4"
-                            name="scan-outline"
-                            role="img"
-                          />
-                        </div>
-                        <p class="mt-4 text-lg font-semibold leading-6 text-black font-display tracking-tight">
-                          {feature.title}
-                        </p>
-                      </div>
-                      <div class="mt-4 text-gray-500 text-sm">
-                        {feature.description}
-                      </div>
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </div>
     </section>
 
