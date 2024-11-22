@@ -1,3 +1,6 @@
+import { delay } from "motion";
+import { motion } from "motion/react";
+
 export function Pricing() {
   const plans = [
     {
@@ -14,6 +17,7 @@ export function Pricing() {
       link: "/register",
       buttonLabel: "Comenzar",
       recommended: false,
+      delay: 0,
     },
     {
       name: "Plan Básico",
@@ -29,6 +33,7 @@ export function Pricing() {
       link: "/register",
       buttonLabel: "Comenzar",
       recommended: false,
+      delay: 0.2,
     },
     {
       name: "Plan Profesional",
@@ -44,6 +49,7 @@ export function Pricing() {
       link: "/register",
       buttonLabel: "Comenzar",
       recommended: true,
+      delay: 0.4,
     },
     {
       name: "Plan Enterprise",
@@ -58,51 +64,66 @@ export function Pricing() {
       link: "/register",
       buttonLabel: "Comenzar",
       recommended: false,
+      delay: 0.6,
     },
   ];
   return (
 
     <section aria-labelledby="pricing-section" id="pricing">
-      <div class="lg:px-16 max-w-7xl md:px-12 mx-auto px-8 py-24 scroll-mt-12">
-        <div class="text-center max-w-3xl mx-auto">
-          <h2
-            class="text-4xl tracking-tight font-medium text-black md:text-5xl font-display"
+      <div className="lg:px-16 max-w-7xl md:px-12 mx-auto px-8 py-24 scroll-mt-12">
+        <div className="text-center max-w-3xl mx-auto">
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { duration: 1 } },
+            }}
+            className="text-4xl tracking-tight font-medium text-black md:text-5xl font-display"
           >
             Planes que se adaptan a tus necesidades
-          </h2>
+          </motion.h2>
         </div>
 
         <div
-          class="grid max-w-2xl grid-cols-1 py-4 mt-24 -mx-4 xl:-mx-12 sm:grid-cols-2 gap-y-10 sm:mx-auto lg:max-w-none lg:grid-cols-4 xl:gap-x-2"
+          className="grid max-w-2xl grid-cols-1 py-4 mt-24 -mx-4 xl:-mx-12 sm:grid-cols-2 gap-y-10 sm:mx-auto lg:max-w-none lg:grid-cols-4 xl:gap-x-2"
         >
           {
             plans.map((plan) => (
-              <section
+              <motion.section
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={{
+                  hidden: { opacity: 0, translateY: 15 },
+                  visible: { opacity: 1, translateY: 0, transition: { duration: 0.5, delay: plan.delay } },
+                }}
                 class={`flex flex-col px-6 rounded-3xl py-6 lg:py-8 ${plan.recommended ? "bg-black text-white sm:px-8" : "bg-gray-50"}`}
               >
-                <h3 class="mt-5 text-lg font-display">{plan.name}</h3>
+                <h3 className="mt-5 text-lg font-display">{plan.name}</h3>
                 <p
                   class={`mt-2 whitespace-pre-line min-h-[40px] text-sm ${plan.recommended ? "text-accent-100" : "text-gray-500"}`}
                 >
                   {plan.description}
                 </p>
-                <p class="order-first text-5xl font-light tracking-tight font-display">
+                <p className="order-first text-5xl font-light tracking-tight font-display">
                   {plan.price}
-                  <span class="text-lg">/mes</span>
+                  <span className="text-lg">/mes</span>
                 </p>
                 <ul
                   role="list"
                   class={`flex flex-col order-last mt-10 text-sm ${plan.recommended ? "text-white" : "text-gray-600"} gap-y-3`}
                 >
                   {plan.features.map((feature) => (
-                    <li class="flex items-center">
+                    <li className="flex items-center">
                       <ion-icon
-                        class="w-4 h-4 md hydrated"
+                        className="w-4 h-4 md hydrated"
                         name="checkmark-outline"
                         role="img"
                         aria-label="checkmark outline"
                       />
-                      <span class="ml-4">{feature}</span>
+                      <span className="ml-4">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -113,27 +134,10 @@ export function Pricing() {
                 >
                   {plan.buttonLabel}
                 </a>
-              </section>
+              </motion.section>
             ))
           }
         </div>
-        {/* <div class="mx-auto pt-12 lg:py-16">
-          <div class="grid grid-cols-2 gap-0.5 lg:mt-8 md:grid-cols-6 mt-6">
-            <div class="flex justify-center col-span-1 px-8">
-              <img alt="logo" src="/Figma.svg" />
-            </div><div class="flex justify-center col-span-1 px-8">
-              <img alt="logo" src="/Canva.svg" />
-            </div><div class="flex justify-center col-span-1 px-8">
-              <img alt="logo" src="/Stripe.svg" />
-            </div><div class="flex justify-center col-span-1 px-8">
-              <img alt="logo" src="/Gitlab.svg" />
-            </div><div class="flex justify-center col-span-1 px-8">
-              <img alt="logo" src="/Linear.svg" />
-            </div><div class="flex justify-center col-span-1 px-8">
-              <img alt="logo" src="/Gumroad.svg" />
-            </div>
-          </div>
-        </div> */}
       </div>
     </section>
 
