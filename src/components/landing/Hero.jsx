@@ -3,7 +3,7 @@ import { motion } from "motion/react"
 export function Hero() {
   return (
     <section>
-      <div className="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-14">
+      <div className="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 pt-20">
         <motion.div
           className="text-center max-w-3xl mx-auto"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -11,7 +11,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }} >
 
           <motion.p
-            className="text-4xl tracking-tight font-semibold text-black md:text-5xl font-display mt-8"
+            className="text-4xl tracking-tight font-semibold text-black md:text-5xl font-display mb-8"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }} >
